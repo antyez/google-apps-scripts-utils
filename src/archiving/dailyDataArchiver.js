@@ -1,0 +1,17 @@
+function transferClearConsultations() {
+    const currentDay = new Date().getDay();
+    const shouldExecute = currentDay >= 1 && currentDay <= 5;
+  
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const consultationsSheet = ss.getSheetByName("Today Queries");
+    const historySheet = ss.getSheetByName("Historial");
+  
+    const consultationsRange = consultationsSheet.getRange("A3:P250");
+    const consultationsData = consultationsRange.getValues();
+  
+    const lastHistoryRow = historySheet.getLastRow();
+  
+    shouldExecute && historySheet.getRange(lastHistoryRow + 1, 1, consultationsData.length, consultationsData[0].length).setValues(consultationsData);
+    shouldExecute && consultationsSheet.getRange("F3:I250").clearContent();
+  }
+  
