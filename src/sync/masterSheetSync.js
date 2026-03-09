@@ -17,10 +17,13 @@ const SOURCE_SHEET_URLS = [
       
       data.forEach(row => masterSheet && masterSheet.appendRow(row));
     });
-  
+
+    // This log is preference
     Logger.log('Data synchronized successfully.');
   }
-  
+
+
+// Google App Scripts has its own native way to add triggers so this might not be needed. This was a technical decision to avoid potential locale conflicts.
   function createTrigger() {
     ScriptApp.newTrigger('syncData')
       .timeBased()
