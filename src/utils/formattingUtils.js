@@ -1,0 +1,19 @@
+function replaceLastLineBreaks() {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheetByName("Queries without answer");
+    const lastRow = sheet.getLastRow();
+  
+    const startRow = Math.max(1, lastRow - 4);
+    const range = sheet.getRange(startRow, 7, lastRow - startRow + 1, 1);
+    const data = range.getValues();
+    
+    const updatedData = data.map(row => {
+      const value = row[0];
+      const isString = typeof value === 'string';
+      const newValue = isString ? value.replace(/\n/g, ' / ') : value;
+      return [newValue];
+    });
+  
+    range.setValues(updatedData);
+  }
+  
